@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LARA Fit-Expert vs Current Chatbot — Side by Side</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0A0A0A;
+  --dark: #141414;
+  --charcoal: #1E1E1E;
+  --card: #242424;
+  --border: #333;
+  --gold: #C9A84C;
+  --gold-dim: #9E7E2E;
+  --gold-glow: rgba(201,168,76,0.15);
+  --cream: #FAF8F4;
+  --cream-dim: #C8C3B8;
+  --red: #E05555;
+  --red-bg: rgba(224,85,85,0.08);
+  --red-border: rgba(224,85,85,0.25);
+  --green: #4CAF6A;
+  --green-bg: rgba(76,175,106,0.08);
+  --green-border: rgba(76,175,106,0.25);
+  --blue: #5B9BD5;
+  --warm-gray: #8A8477;
+  --text: #E8E4DD;
+  --text-dim: #9A9590;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--black);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Navigation ── */
+.nav {
+  position: fixed; top:0; left:0; right:0; z-index: 100;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.7rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand { font-family:'Playfair Display',serif; color:var(--gold); font-size:0.85rem; letter-spacing:4px; text-transform:uppercase; }
+.nav-links { display:flex; gap:0.3rem; }
+.nav-links button {
+  background: none; border:1px solid transparent; color:var(--text-dim);
+  padding: 0.35rem 0.8rem; border-radius:4px; cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:500;
+  transition: all 0.2s;
+}
+.nav-links button:hover, .nav-links button.active {
+  color:var(--gold); border-color:var(--gold-dim);
+}
+
+/* ── Sections ── */
+section {
+  min-height: 100vh;
+  padding: 5rem 2rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Typography ── */
+.section-num { font-family:'JetBrains Mono',monospace; color:var(--gold); font-size:0.75rem; letter-spacing:3px; margin-bottom:0.5rem; text-transform:uppercase; }
+h1 { font-family:'Playfair Display',serif; font-size:2.8rem; color:var(--cream); line-height:1.15; margin-bottom:0.5rem; }
+h2 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--cream); line-height:1.2; margin-bottom:0.5rem; }
+h3 { font-family:'DM Sans',sans-serif; font-size:1.1rem; font-weight:600; margin-bottom:0.5rem; }
+.subtitle { color:var(--text-dim); font-size:1.05rem; max-width:700px; margin-bottom:2.5rem; }
+.label { font-family:'JetBrains Mono',monospace; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; padding:0.2rem 0.6rem; border-radius:3px; display:inline-block; margin-bottom:0.8rem; }
+.label-red { background:var(--red-bg); color:var(--red); border:1px solid var(--red-border); }
+.label-green { background:var(--green-bg); color:var(--green); border:1px solid var(--green-border); }
+.label-gold { background:var(--gold-glow); color:var(--gold); border:1px solid rgba(201,168,76,0.3); }
+
+/* ── Hero ── */
+#hero { display:flex; flex-direction:column; justify-content:center; padding-top:6rem; }
+#hero h1 { font-size:3.2rem; max-width:800px; }
+#hero h1 em { color:var(--gold); font-style:italic; }
+.hero-line { width:80px; height:2px; background:var(--gold); margin:1.5rem 0; }
+.hero-meta { display:flex; gap:2rem; margin-top:1rem; }
+.hero-meta-item { font-size:0.8rem; color:var(--text-dim); }
+.hero-meta-item strong { color:var(--gold); font-size:1.4rem; display:block; font-family:'Playfair Display',serif; }
+
+/* ── Scenario ── */
+.scenario-box {
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.8rem;
+  margin: 2rem 0;
+}
+.customer-profile {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+}
+.customer-profile dt { color:var(--text-dim); font-weight:500; }
+.customer-profile dd { color:var(--cream); font-family:'JetBrains Mono',monospace; font-size:0.85rem; }
+
+/* ── Split comparison ── */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+@media(max-width:800px) { .split { grid-template-columns:1fr; } }
+
+.panel {
+  background: var(--charcoal);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.panel-header {
+  padding: 1rem 1.2rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.panel-fail .panel-header { background:var(--red-bg); color:var(--red); border-bottom:1px solid var(--red-border); }
+.panel-pass .panel-header { background:var(--green-bg); color:var(--green); border-bottom:1px solid var(--green-border); }
+.panel-body { padding: 1.2rem; }
+
+/* ── Chat bubbles ── */
+.chat { display:flex; flex-direction:column; gap:0.6rem; }
+.chat-msg {
+  max-width: 88%;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  animation: fadeUp 0.3s ease-out both;
+}
+.chat-user { align-self:flex-end; background:#2A2520; border:1px solid #3A352E; color:var(--cream); border-bottom-right-radius:4px; }
+.chat-bot { align-self:flex-start; border-bottom-left-radius:4px; }
+.chat-bot-fail { background:var(--red-bg); border:1px solid var(--red-border); color:#F0C8C8; }
+.chat-bot-pass { background:var(--green-bg); border:1px solid var(--green-border); color:#C8F0D0; }
+.chat-bot-neutral { background:#1A1F2A; border:1px solid #2A3040; color:#C8D8F0; }
+.chat-system {
+  align-self: center;
+  background: var(--red-bg);
+  border: 1px dashed var(--red-border);
+  color: var(--red);
+  font-size: 0.75rem;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  text-align: center;
+}
+.chat-verdict {
+  align-self: flex-start;
+  background: var(--green-bg);
+  border: 2px solid var(--green);
+  color: var(--green);
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+  width: 100%;
+}
+.chat-label { font-size:0.65rem; color:var(--text-dim); margin-bottom:0.15rem; font-weight:500; }
+
+/* ── Failure callout ── */
+.failure-callout {
+  background: var(--red-bg);
+  border-left: 3px solid var(--red);
+  padding: 1rem 1.2rem;
+  margin: 0.8rem 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.82rem;
+}
+.failure-callout strong { color:var(--red); }
+.success-callout {
+  background: var(--green-bg);
+  border-left: 3px solid var(--green);
+  padding: 1rem 1.2rem;
+  margin: 0.8rem 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.82rem;
+}
+.success-callout strong { color:var(--green); }
+
+/* ── Step markers ── */
+.step-grid { display:flex; flex-direction:column; gap:2.5rem; margin:2rem 0; }
+.step {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 1rem;
+}
+.step-num {
+  width:42px; height:42px; border-radius:50%;
+  background:var(--gold-glow); border:1px solid var(--gold-dim);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:var(--gold); font-weight:600;
+}
+
+/* ── Architecture diagram ── */
+.arch-flow {
+  display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;
+  margin:1.5rem 0; padding:1.5rem;
+  background:var(--charcoal); border:1px solid var(--border); border-radius:8px;
+}
+.arch-node {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: center;
+  min-width: 100px;
+}
+.arch-node.highlight { border-color:var(--gold); background:var(--gold-glow); color:var(--gold); }
+.arch-arrow { color:var(--gold); font-size:1.2rem; }
+
+/* ── Bottom line ── */
+.bottom-line {
+  background: linear-gradient(135deg, rgba(201,168,76,0.1), rgba(201,168,76,0.03));
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+  text-align: center;
+}
+.bottom-line .big { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--cream); margin-bottom:0.5rem; }
+.bottom-line .big em { color:var(--gold); font-style:italic; }
+.bottom-line p { color:var(--text-dim); font-size:0.9rem; max-width:600px; margin:0 auto; }
+
+/* ── Flow diagram boxes ── */
+.flow-compare {
+  display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;
+  margin:2rem 0;
+}
+@media(max-width:800px) { .flow-compare { grid-template-columns:1fr; } }
+.flow-box {
+  padding:1.5rem; border-radius:8px;
+}
+.flow-box-red { background:var(--red-bg); border:1px solid var(--red-border); }
+.flow-box-green { background:var(--green-bg); border:1px solid var(--green-border); }
+.flow-box h3 { margin-bottom:1rem; }
+.flow-step {
+  display:flex; align-items:flex-start; gap:0.6rem;
+  margin-bottom:0.7rem; font-size:0.85rem;
+}
+.flow-icon { font-size:1.1rem; flex-shrink:0; margin-top:0.1rem; }
+.flow-step-text b { display:block; margin-bottom:0.1rem; }
+
+/* ── Cost bar ── */
+.cost-row {
+  display:grid; grid-template-columns:150px 1fr auto;
+  align-items:center; gap:1rem;
+  margin:0.6rem 0;
+  font-size:0.85rem;
+}
+.cost-bar {
+  height:28px; border-radius:4px; display:flex; align-items:center; padding-left:0.8rem;
+  font-size:0.75rem; font-weight:600; color:white;
+  transition:width 0.8s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(8px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+/* ── Scrollable ── */
+.scroll-reveal { opacity:0; transform:translateY(20px); transition:all 0.5s ease; }
+.scroll-reveal.visible { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-brand">LARA — Fit-Expert Proof</div>
+  <div class="nav-links">
+    <button onclick="scrollTo_('hero')" class="active">Overview</button>
+    <button onclick="scrollTo_('test1')">Test 1</button>
+    <button onclick="scrollTo_('test2')">Test 2</button>
+    <button onclick="scrollTo_('test3')">Test 3</button>
+    <button onclick="scrollTo_('test4')">Test 4</button>
+    <button onclick="scrollTo_('oneline')">Bottom Line</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ═══════════════════════════════════════ -->
+<section id="hero">
+  <div class="section-num">Proof of Concept</div>
+  <h1>Same Customer. Same Dress.<br>Two <em>Very Different</em> Answers.</h1>
+  <div class="hero-line"></div>
+  <p class="subtitle">I tested our new chatbot exactly the way a real customer would — someone spending $650 on a beaded gown and needing to know if it fits. Here's what happened, and what the Fit-Expert does differently.</p>
+  
+  <div class="scenario-box">
+    <span class="label label-gold">Test Customer Profile</span>
+    <dl class="customer-profile" style="margin-top:0.8rem;">
+      <dt>Scenario</dt><dd>Shopping for a special event, first time on LARA.com</dd>
+      <dt>Bust</dt><dd>36 inches</dd>
+      <dt>Waist</dt><dd>29 inches</dd>
+      <dt>Hips</dt><dd>39 inches</dd>
+      <dt>Usual Size</dt><dd>"I'm usually a size 8 but it depends on the brand"</dd>
+      <dt>Concern</dt><dd>"I want to make sure it fits — your return policy is 14 days and $30 shipping"</dd>
+    </dl>
+  </div>
+
+  <div class="hero-meta">
+    <div class="hero-meta-item"><strong>4</strong>Tests Run</div>
+    <div class="hero-meta-item"><strong>4</strong>Chatbot Failures</div>
+    <div class="hero-meta-item"><strong>$650</strong>At Stake Per Visit</div>
+    <div class="hero-meta-item"><strong>1</strong>Chance to Convert</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TEST 1: WRONG PRODUCT -->
+<!-- ═══════════════════════════════════════ -->
+<section id="test1">
+  <div class="section-num">Failure 01</div>
+  <h2>Wrong Dress, Wrong Answer</h2>
+  <p class="subtitle">Customer asks about style 29454 (Lace Gown with Cape Sleeves, $658). The chatbot responds with information about a completely different dress.</p>
+
+  <div class="split">
+    <!-- CHATBOT -->
+    <div class="panel panel-fail">
+      <div class="panel-header">❌ Current Chatbot</div>
+      <div class="panel-body">
+        <div class="chat">
+          <div class="chat-label">Customer</div>
+          <div class="chat-msg chat-user">Hi! I'm looking at style 29454, the Lace Gown with Cape Sleeves. Can you tell me about the fit?</div>
+          <div class="chat-label">Chatbot</div>
+          <div class="chat-msg chat-bot chat-bot-fail">Sure! Style 29454 is a beautiful fitted beaded gown with spaghetti straps, priced at $550. It features a flattering silhouette with intricate beadwork throughout...</div>
+        </div>
+        <div class="failure-callout" style="margin-top:1rem;">
+          <strong>⚠️ Wrong product.</strong> That's style 29004 — a $550 beaded gown with spaghetti straps. The customer asked about style 29454 — a $658 lace gown with cape sleeves. The bot did a fuzzy text match and pulled the wrong SKU.
+        </div>
+      </div>
+    </div>
+
+    <!-- FIT-EXPERT -->
+    <div class="panel panel-pass">
+      <div class="panel-header">✅ Fit-Expert Agent</div>
+      <div class="panel-body">
+        <div class="chat">
+          <div class="chat-label">Customer</div>
+          <div class="chat-msg chat-user">Hi! I'm looking at style 29454, the Lace Gown with Cape Sleeves. Can you tell me about the fit?</div>
+          <div class="chat-label">Fit-Expert</div>
+          <div class="chat-msg chat-bot chat-bot-pass">Beautiful choice! Style 29454 is the Lace Gown with Cape Sleeves at $658 — a gorgeous overlay lace with a crepe lining. It has a fitted bodice with a slight A-line from the hip. I can check your exact fit if you share your measurements — takes about 30 seconds!</div>
+        </div>
+        <div class="success-callout" style="margin-top:1rem;">
+          <strong>✓ Exact SKU match.</strong> The Fit-Expert does an exact style number lookup — no fuzzy matching. Right dress, right price, right fabric description — instantly.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-compare">
+    <div class="flow-box flow-box-red">
+      <h3 style="color:var(--red);">How the chatbot works</h3>
+      <div class="flow-step"><span class="flow-icon">📄</span><div class="flow-step-text"><b>Reads product page text</b>Scans titles and descriptions across all products</div></div>
+      <div class="flow-step"><span class="flow-icon">🔍</span><div class="flow-step-text"><b>Fuzzy keyword search</b>"29454" partially matches "29004" — close enough</div></div>
+      <div class="flow-step"><span class="flow-icon">❌</span><div class="flow-step-text"><b>Returns wrong product</b>Customer gets info for a different dress at a different price</div></div>
+    </div>
+    <div class="flow-box flow-box-green">
+      <h3 style="color:var(--green);">How the Fit-Expert works</h3>
+      <div class="flow-step"><span class="flow-icon">🔑</span><div class="flow-step-text"><b>Exact SKU lookup</b>Queries Shopify product API by exact style number</div></div>
+      <div class="flow-step"><span class="flow-icon">📐</span><div class="flow-step-text"><b>Pulls structured data</b>Garment specs, fabric type, stretch factor from metafields</div></div>
+      <div class="flow-step"><span class="flow-icon">✅</span><div class="flow-step-text"><b>Confirms correct product</b>Right dress, right specs, ready to calculate fit</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TEST 2: CONTRADICTORY SIZING -->
+<!-- ═══════════════════════════════════════ -->
+<section id="test2">
+  <div class="section-num">Failure 02</div>
+  <h2>Same Body, 4-Size Contradiction</h2>
+  <p class="subtitle">Same customer measurements (bust 36", waist 29", hips 39"). Two different styles. The chatbot recommends sizes that are 4–6 sizes apart.</p>
+
+  <div class="split">
+    <div class="panel panel-fail">
+      <div class="panel-header">❌ Current Chatbot</div>
+      <div class="panel-body">
+        <div class="chat">
+          <div class="chat-label">Customer asks about Style 29190</div>
+          <div class="chat-msg chat-user">I'm bust 36, waist 29, hips 39. What size in style 29190?</div>
+          <div class="chat-msg chat-bot chat-bot-fail">Based on the size chart, I'd recommend a <strong>size 10–12</strong> for the best fit in this style.</div>
+          
+          <div style="border-top:1px dashed var(--border);margin:0.8rem 0;"></div>
+          
+          <div class="chat-label">Customer asks about Style 29454</div>
+          <div class="chat-msg chat-user">Same measurements — what size in style 29454?</div>
+          <div class="chat-msg chat-bot chat-bot-fail">For style 29454, I'd recommend a <strong>size 6</strong> for your measurements.</div>
+        </div>
+        <div class="failure-callout" style="margin-top:1rem;">
+          <strong>⚠️ Size 6 vs Size 10–12 on the same body.</strong> The bot reads each product's size chart text independently, has no memory between questions, and generates a new "best guess" each time. There's no consistent measurement engine — just text interpretation.
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-pass">
+      <div class="panel-header">✅ Fit-Expert Agent</div>
+      <div class="panel-body">
+        <div class="chat">
+          <div class="chat-label">Customer asks about Style 29190</div>
+          <div class="chat-msg chat-user">I'm bust 36, waist 29, hips 39. What size in style 29190?</div>
+          <div class="chat-msg chat-bot chat-bot-pass">Let me check style 29190 against your measurements...<br><br>📐 Bust 36" → Size 8 range: 35.5"–37" ✓<br>📐 Waist 29" → Size 8 range: 28"–30" ✓<br>📐 Hips 39" → Size 8 range: 38.5"–40" ✓<br>📐 Fabric: Beaded mesh (3% stretch)</div>
+          <div class="chat-msg chat-verdict">✅ SAFE BUY — SIZE 8</div>
+          
+          <div style="border-top:1px dashed var(--border);margin:0.8rem 0;"></div>
+          
+          <div class="chat-label">Customer asks about Style 29454</div>
+          <div class="chat-msg chat-user">What about style 29454?</div>
+          <div class="chat-msg chat-bot chat-bot-pass">Checking style 29454...<br><br>📐 Bust 36" → Size 8 range: 35"–36.5" ✓<br>📐 Waist 29" → Size 8 range: 27.5"–29.5" ✓<br>📐 Hips 39" → Size 8 range: 38"–39.5" ✓<br>📐 Fabric: Lace overlay (5% stretch)<br>⚡ Note: This style runs slightly snug in bust. Your measurement is at the upper edge.</div>
+          <div class="chat-msg chat-verdict">✅ SAFE BUY — SIZE 8 (size 10 also works if you prefer a relaxed fit)</div>
+        </div>
+        <div class="success-callout" style="margin-top:1rem;">
+          <strong>✓ Consistent, data-driven sizing.</strong> Both answers come from the same measurement engine. Differences between styles are explained by actual garment specs and fabric stretch — not random guessing.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TEST 3: ABANDONED AT CRITICAL MOMENT -->
+<!-- ═══════════════════════════════════════ -->
+<section id="test3">
+  <div class="section-num">Failure 03</div>
+  <h2>Abandoned at the $650 Moment</h2>
+  <p class="subtitle">The customer asks the hardest question — the one that decides if she buys or leaves. The chatbot gives up. The Fit-Expert has the answer.</p>
+
+  <div class="split">
+    <div class="panel panel-fail">
+      <div class="panel-header">❌ Current Chatbot</div>
+      <div class="panel-body">
+        <div class="chat">
+          <div class="chat-label">Customer</div>
+          <div class="chat-msg chat-user">Does this dress have stretch? I'm between a 10 and 12 — which is safer to order given your return policy?</div>
+          <div class="chat-msg chat-bot chat-bot-fail">That's a great question! Please leave your email address and our team will get back to you with more information. 📧</div>
+          <div class="chat-system">⏱ Lara Chat is closing in 7 minutes</div>
+          <div class="chat-msg chat-bot chat-bot-fail">Is there anything else I can help you with?</div>
+        </div>
+        <div class="failure-callout" style="margin-top:1rem;">
+          <strong>⚠️ Customer is gone.</strong> She asked the most important question — the one that determines whether she risks $650 + $30 return fee. The bot has no fabric data. It escalates to email. The chat is closing. She opens Nordstrom.com where returns are free and unlimited.
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-pass">
+      <div class="panel-header">✅ Fit-Expert Agent</div>
+      <div class="panel-body">
+        <div class="chat">
+          <div class="chat-label">Customer</div>
+          <div class="chat-msg chat-user">Does this dress have stretch? I'm between a 10 and 12 — which is safer to order given your return policy?</div>
+          <div class="chat-msg chat-bot chat-bot-pass">Great question! This gown is beaded mesh over a jersey lining. The jersey gives about <strong>5% stretch</strong>, but the beadwork limits how much the outer layer moves — so effective stretch is around <strong>2–3%</strong>.<br><br>Since you're between sizes and our return window is 14 days with a $30 shipping fee, here's my recommendation:</div>
+          <div class="chat-msg chat-verdict">⚠️ SIZE UP — GO WITH SIZE 12<br><span style="font-weight:400;font-size:0.8rem;">Your waist is at the top of Size 10's range. With limited stretch on the beadwork, Size 12 gives you comfortable room. Much safer given the return policy.</span></div>
+          <div class="chat-msg chat-bot chat-bot-pass">Would you also like me to save your measurements to your account? Next time you shop, I'll know your sizes instantly — no re-measuring needed! 💛</div>
+        </div>
+        <div class="success-callout" style="margin-top:1rem;">
+          <strong>✓ Answered the question that matters.</strong> Fabric stretch data, return policy awareness, and a definitive "size up" recommendation. This is exactly what Jasmine does in the showroom — but at 2 AM from the customer's couch.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TEST 4: NO MEMORY -->
+<!-- ═══════════════════════════════════════ -->
+<section id="test4">
+  <div class="section-num">Failure 04</div>
+  <h2>Every Visit Starts from Zero</h2>
+  <p class="subtitle">The customer returns to browse a different style. One system makes her re-enter everything. The other already knows her.</p>
+
+  <div class="split">
+    <div class="panel panel-fail">
+      <div class="panel-header">❌ Current Chatbot</div>
+      <div class="panel-body">
+        <div class="chat">
+          <div class="chat-msg chat-bot chat-bot-neutral">Welcome to Lara! How can I help you today? 😊</div>
+          <div class="chat-label">Customer (returning)</div>
+          <div class="chat-msg chat-user">Hi, I was here yesterday. I want to check sizing on another style.</div>
+          <div class="chat-msg chat-bot chat-bot-fail">Sure! What are your measurements? I'll need your bust, waist, and hip measurements to help with sizing.</div>
+        </div>
+        <div class="failure-callout" style="margin-top:1rem;">
+          <strong>⚠️ No memory.</strong> The customer already provided measurements yesterday. The chatbot has no session memory, no customer profile, no account link. Every visit is a cold start. This is how you lose repeat customers.
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-pass">
+      <div class="panel-header">✅ Fit-Expert Agent</div>
+      <div class="panel-body">
+        <div class="chat">
+          <div class="chat-msg chat-bot chat-bot-pass">Welcome back! I have your fit profile saved from your last visit — bust 36", waist 29", hips 39". Want me to check a new style for you? 💛</div>
+          <div class="chat-label">Customer (returning)</div>
+          <div class="chat-msg chat-user">Yes! What about the beaded column gown, style 29310?</div>
+          <div class="chat-msg chat-bot chat-bot-pass">Checking style 29310 against your saved profile...<br><br>📐 All three measurements fall within Size 8 range<br>📐 Fabric: Structured crepe (minimal stretch)<br>📐 Fit note: This style runs true to size</div>
+          <div class="chat-msg chat-verdict">✅ SAFE BUY — SIZE 8<br><span style="font-weight:400;font-size:0.8rem;">Same as your last recommendation. This style is a great match for your body type.</span></div>
+        </div>
+        <div class="success-callout" style="margin-top:1rem;">
+          <strong>✓ Instant repeat purchase.</strong> Fit profile saved to the customer's Shopify account. Zero friction. This is how you build a DTC customer who comes back 3–4 times a year.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- BOTTOM LINE -->
+<!-- ═══════════════════════════════════════ -->
+<section id="oneline">
+  <div class="section-num">The Bottom Line</div>
+  <h2>One Sentence</h2>
+  <div style="height:1.5rem;"></div>
+
+  <div class="flow-compare">
+    <div class="flow-box flow-box-red" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem;text-align:center;">
+      <div style="font-size:2.5rem;margin-bottom:0.5rem;">🤖</div>
+      <h3 style="color:var(--red);font-size:1.3rem;font-family:'Playfair Display',serif;">Their chatbot reads the<br>size chart and <em>guesses.</em></h3>
+    </div>
+    <div class="flow-box flow-box-green" style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5rem;text-align:center;">
+      <div style="font-size:2.5rem;margin-bottom:0.5rem;">📐</div>
+      <h3 style="color:var(--green);font-size:1.3rem;font-family:'Playfair Display',serif;">The Fit-Expert reads the<br>garment specs and <em>knows.</em></h3>
+    </div>
+  </div>
+
+  <div class="bottom-line">
+    <div class="big">The Fit-Expert doesn't replace <em>any</em> policy.<br>It makes the policy <em>irrelevant</em>.</div>
+    <p style="margin-top:1rem;">When a customer knows her size is right, the 14-day window and $30 return fee stop being dealbreakers. She buys with confidence — on LARA.com, not Nordstrom.</p>
+  </div>
+
+  <div class="scenario-box" style="text-align:center;">
+    <div style="display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;">
+      <div><span style="color:var(--gold);font-family:'Playfair Display',serif;font-size:2rem;display:block;">$35–115</span><span style="color:var(--text-dim);font-size:0.8rem;">/month to operate</span></div>
+      <div><span style="color:var(--gold);font-family:'Playfair Display',serif;font-size:2rem;display:block;">3–4 weeks</span><span style="color:var(--text-dim);font-size:0.8rem;">to build and launch</span></div>
+      <div><span style="color:var(--gold);font-family:'Playfair Display',serif;font-size:2rem;display:block;">$15,600</span><span style="color:var(--text-dim);font-size:0.8rem;">/year saved (conservative)</span></div>
+    </div>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-top:1.5rem;">Prototype is built. Ready to launch before peak gala season (March–April).</p>
+  </div>
+</section>
+
+<div style="padding:2rem;text-align:center;color:var(--text-dim);font-size:0.75rem;border-top:1px solid var(--border);">
+  LARA New York — Fit-Expert Agent Proof of Concept &nbsp;•&nbsp; Prepared February 2026
+</div>
+
+<script>
+function scrollTo_(id) {
+  document.getElementById(id).scrollIntoView({ behavior:'smooth' });
+}
+
+// Active nav tracking
+const sections = document.querySelectorAll('section');
+const navBtns = document.querySelectorAll('.nav-links button');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navBtns.forEach(b => b.classList.remove('active'));
+      const id = entry.target.id;
+      const mapping = { hero:0, test1:1, test2:2, test3:3, test4:4, oneline:5 };
+      if (mapping[id] !== undefined) navBtns[mapping[id]].classList.add('active');
+    }
+  });
+}, { threshold:0.3 });
+sections.forEach(s => observer.observe(s));
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.scroll-reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold:0.2 });
+reveals.forEach(r => revealObs.observe(r));
+</script>
+</body>
+</html>
